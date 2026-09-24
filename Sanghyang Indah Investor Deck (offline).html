@@ -333,6 +333,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     controlsStyle.textContent = '#slideshow-controls{position:fixed;z-index:2147483647;right:22px;bottom:18px;display:flex;align-items:center;gap:8px;padding:8px;border-radius:14px;background:rgba(6,20,23,.9);font:500 14px Barlow,Arial,sans-serif;touch-action:manipulation}#slideshow-controls button{border:1px solid rgba(247,243,236,.35);border-radius:8px;background:#0F3B3F;color:#F7F3EC;padding:11px 16px;cursor:pointer;font:inherit;touch-action:manipulation}#slideshow-controls button:hover{background:#C4622D}@media(hover:none){#slideshow-controls button:hover{background:#0F3B3F}}#slideshow-controls span{color:#F7F3EC;min-width:42px;text-align:center}@media(max-width:640px){#slideshow-controls{right:8px;bottom:8px;gap:3px;padding:4px}#slideshow-controls button{padding:8px 9px;font-size:11px}#slideshow-controls [data-slide-count]{display:none}}';
     document.head.appendChild(controlsStyle);
     document.body.appendChild(controls);
+    controls.style.display = 'none';
     const stageForControls = () => document.querySelector('deck-stage');
     const slideIndex = () => Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1);
     const updateSlideCount = () => { controls.querySelector('[data-slide-count]').textContent = (slideIndex() + 1) + ' / 19'; };
@@ -352,7 +353,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       if (!chromeStyle) {
         chromeStyle = document.createElement('style');
         chromeStyle.id = 'slideshow-only-chrome';
-        chromeStyle.textContent = '.rail,.rail-resize{display:none!important}.canvas{box-shadow:none!important}';
+        chromeStyle.textContent = '.rail,.rail-resize,.overlay{display:none!important}.canvas{box-shadow:none!important}';
         root.appendChild(chromeStyle);
       }
       let hidden = false;
