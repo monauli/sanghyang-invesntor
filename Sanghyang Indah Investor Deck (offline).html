@@ -325,6 +325,25 @@ document.addEventListener('DOMContentLoaded', async function() {
     const doc = new DOMParser().parseFromString(template, 'text/html');
     document.documentElement.replaceWith(doc.documentElement);
 
+    // Hide the optional contents drawer; slide navigation stays available.
+    const hideContents = () => {
+      const stage = document.querySelector('deck-stage');
+      const root = stage && stage.shadowRoot;
+      if (!root) return false;
+      let hidden = false;
+      for (const el of root.querySelectorAll('button,[role="button"]')) {
+        if ((el.textContent || '').trim().toUpperCase() === 'CONTENTS') {
+          el.style.display = 'none';
+          hidden = true;
+        }
+      }
+      return hidden;
+    };
+    const contentsTimer = setInterval(() => {
+      if (hideContents()) clearInterval(contentsTimer);
+    }, 100);
+    setTimeout(() => clearInterval(contentsTimer), 5000);
+
     // Resolve page-frame markers: mint this document's own blob for each
     // framed page — from local text when this is the root, otherwise by
     // asking the direct parent over the relay protocol above. An
