@@ -355,7 +355,15 @@ document.addEventListener('DOMContentLoaded', async function() {
       }
       let hidden = false;
       for (const el of root.querySelectorAll('button,[role="button"]')) {
-        if ((el.textContent || '').toUpperCase().includes('CONTENTS')) {
+        const label = [el.textContent, el.getAttribute('aria-label'), el.getAttribute('title')].filter(Boolean).join(' ').toUpperCase();
+        if (label.includes('CONTENTS')) {
+          el.style.display = 'none';
+          hidden = true;
+        }
+      }
+      for (const el of document.querySelectorAll('button,[role="button"]')) {
+        const label = [el.textContent, el.getAttribute('aria-label'), el.getAttribute('title')].filter(Boolean).join(' ').toUpperCase();
+        if (label.includes('CONTENTS')) {
           el.style.display = 'none';
           hidden = true;
         }
