@@ -346,6 +346,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       const stage = document.querySelector('deck-stage');
       const root = stage && stage.shadowRoot;
       if (!root) return false;
+      stage.setAttribute('no-rail', '');
       let chromeStyle = root.querySelector('#slideshow-only-chrome');
       if (!chromeStyle) {
         chromeStyle = document.createElement('style');
