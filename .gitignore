@@ -1,0 +1,11 @@
+.vercel
+.env*
+assets/
+uploads/
+*.dc.html
+deck-fx.js
+deck-stage.js
+support.js
+occ-data.json
+.thumbnail
+pasted-*.png
