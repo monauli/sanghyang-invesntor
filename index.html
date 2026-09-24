@@ -330,6 +330,13 @@ document.addEventListener('DOMContentLoaded', async function() {
       const stage = document.querySelector('deck-stage');
       const root = stage && stage.shadowRoot;
       if (!root) return false;
+      let chromeStyle = root.querySelector('#slideshow-only-chrome');
+      if (!chromeStyle) {
+        chromeStyle = document.createElement('style');
+        chromeStyle.id = 'slideshow-only-chrome';
+        chromeStyle.textContent = '.rail,.rail-resize{display:none!important}';
+        root.appendChild(chromeStyle);
+      }
       let hidden = false;
       for (const el of root.querySelectorAll('button,[role="button"]')) {
         if ((el.textContent || '').trim().toUpperCase() === 'CONTENTS') {
