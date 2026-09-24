@@ -376,14 +376,6 @@ document.addEventListener('DOMContentLoaded', async function() {
       }
       return hidden;
     };
-    const bindInteractiveStops = () => {
-      for (const el of document.querySelectorAll('a,button,[role="button"],input,select,textarea')) {
-        if (el.dataset.slideTapBound) continue;
-        el.dataset.slideTapBound = '1';
-        el.addEventListener('click', (e) => e.stopPropagation());
-      }
-    };
-    setInterval(bindInteractiveStops, 250);
     const contentsTimer = setInterval(() => {
       if (hideContents()) clearInterval(contentsTimer);
     }, 100);
