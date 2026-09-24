@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       if (!chromeStyle) {
         chromeStyle = document.createElement('style');
         chromeStyle.id = 'slideshow-only-chrome';
-        chromeStyle.textContent = '.rail,.rail-resize{display:none!important}';
+        chromeStyle.textContent = '.rail,.rail-resize{display:none!important}.canvas{box-shadow:none!important}';
         root.appendChild(chromeStyle);
       }
       let hidden = false;
