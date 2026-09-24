@@ -222,6 +222,10 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     await Promise.all(uuids.map(async (uuid) => {
       const entry = manifest[uuid];
+      if (entry.src && !entry.compressed && !pageSet.has(uuid)) {
+        blobUrls[uuid] = entry.src;
+        return;
+      }
       try {
         const bytes = entry.src
           ? new Uint8Array(await fetch(entry.src).then((r) => r.arrayBuffer()))
