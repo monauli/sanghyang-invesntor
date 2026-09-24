@@ -325,6 +325,22 @@ document.addEventListener('DOMContentLoaded', async function() {
     const doc = new DOMParser().parseFromString(template, 'text/html');
     document.documentElement.replaceWith(doc.documentElement);
 
+    const controls = document.createElement('div');
+    controls.id = 'slideshow-controls';
+    controls.innerHTML = '<button type="button" data-slide-prev>Previous Page</button><span data-slide-count></span><button type="button" data-slide-next>Next Page</button><button type="button" data-slide-fullscreen aria-label="Full screen">⛶</button>';
+    const controlsStyle = document.createElement('style');
+    controlsStyle.textContent = '#slideshow-controls{position:fixed;z-index:2147483647;right:22px;bottom:18px;display:flex;align-items:center;gap:8px;padding:8px;border-radius:14px;background:rgba(6,20,23,.9);font:500 14px Barlow,Arial,sans-serif}#slideshow-controls button{border:1px solid rgba(247,243,236,.35);border-radius:8px;background:#0F3B3F;color:#F7F3EC;padding:11px 16px;cursor:pointer;font:inherit}#slideshow-controls button:hover{background:#C4622D}#slideshow-controls span{color:#F7F3EC;min-width:42px;text-align:center}@media(max-width:640px){#slideshow-controls{right:10px;bottom:10px;gap:4px;padding:5px}#slideshow-controls button{padding:9px 10px;font-size:12px}#slideshow-controls [data-slide-count]{display:none}}';
+    document.head.appendChild(controlsStyle);
+    document.body.appendChild(controls);
+    const stageForControls = () => document.querySelector('deck-stage');
+    const slideIndex = () => Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1);
+    const updateSlideCount = () => { controls.querySelector('[data-slide-count]').textContent = (slideIndex() + 1) + ' / 19'; };
+    controls.querySelector('[data-slide-prev]').onclick = () => { const s = stageForControls(); if (s) s.goTo(Math.max(0, slideIndex() - 1)); setTimeout(updateSlideCount, 50); };
+    controls.querySelector('[data-slide-next]').onclick = () => { const s = stageForControls(); if (s) s.goTo(Math.min(18, slideIndex() + 1)); setTimeout(updateSlideCount, 50); };
+    controls.querySelector('[data-slide-fullscreen]').onclick = () => { if (!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); };
+    window.addEventListener('hashchange', updateSlideCount);
+    updateSlideCount();
+
     // Hide the optional contents drawer; slide navigation stays available.
     const hideContents = () => {
       const stage = document.querySelector('deck-stage');
@@ -339,7 +355,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       }
       let hidden = false;
       for (const el of root.querySelectorAll('button,[role="button"]')) {
-        if ((el.textContent || '').trim().toUpperCase() === 'CONTENTS') {
+        if ((el.textContent || '').toUpperCase().includes('CONTENTS')) {
           el.style.display = 'none';
           hidden = true;
         }
