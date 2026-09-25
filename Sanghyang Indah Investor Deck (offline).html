@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       '</style></head>');
     const doc = new DOMParser().parseFromString(template, 'text/html');
     document.documentElement.replaceWith(doc.documentElement);
-    if (!location.hash || location.hash === '#') history.replaceState(null, '', '#1');
+    history.replaceState(null, '', '#1');
 
     const controls = document.createElement('div');
     controls.id = 'slideshow-controls';
