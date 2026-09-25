@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sanghyang Investor Deck</title>
+  <style>
+    html, body, iframe { width: 100%; height: 100%; margin: 0; border: 0; overflow: hidden; background: #000; }
+    iframe { display: block; }
+  </style>
+  <script>
+    (() => {
+      const mobile = /android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent) ||
+        (matchMedia('(hover: none) and (pointer: coarse)').matches && Math.min(innerWidth, screen.width) <= 1180);
+      if (mobile && location.pathname.toLowerCase().endsWith('/mobile.html')) history.replaceState(null, '', '/');
+    })();
+  </script>
+</head>
+<body>
+  <iframe src="/index.html?embedded=1#1" title="Sanghyang Investor Deck" allow="fullscreen" allowfullscreen></iframe>
+</body>
+</html>
